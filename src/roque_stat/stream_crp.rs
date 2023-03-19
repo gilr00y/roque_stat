@@ -1,16 +1,17 @@
 use std::collections::HashMap;
-use nalgebra::DVector;
+use ndarray::Array1;
 use crate::roque_stat::crp::CRP;
-use crate::roque_stat::table::StreamTable;
+use crate::roque_stat::table::Table;
+// use crate::roque_stat::table::StreamTable;
 
 pub struct StreamCRP {
-  pub alpha: f32,
+  pub alpha: f64,
   pub max_iterations: u32,
   pub tables: HashMap<u16, String>,
 }
 
-impl CRP<StreamTable> for StreamCRP {
-  fn seat(&mut self, datum: DVector<f64>) {
+impl CRP<Table> for StreamCRP {
+  fn seat(&mut self, datum: Array1<f64>) {
     todo!()
   }
 
@@ -18,23 +19,23 @@ impl CRP<StreamTable> for StreamCRP {
     todo!()
   }
 
-  fn with_tables(&self, new_tables: HashMap<Vec<u8>, StreamTable>) -> StreamCRP {
-    todo!()
-  }
-
-  fn dupe(&self, new_tables: HashMap<Vec<u8>, StreamTable>) -> StreamCRP {
-    todo!()
-  }
+  // fn with_tables(&self, new_tables: HashMap<Vec<u8>, Table>) -> StreamCRP {
+  //   todo!()
+  // }
+  //
+  // fn dupe(&self, new_tables: HashMap<Vec<u8>, Table>) -> StreamCRP {
+  //   todo!()
+  // }
 
   fn combine(&self, other: StreamCRP) -> StreamCRP {
     todo!()
   }
 
-  fn pp(&self, datum: DVector<f32>) -> DVector<f32> {
+  fn pp(&self, datum: Array1<f64>) -> f64 {
     todo!()
   }
 
-  fn draw(&self) -> Vec<DVector<f32>> {
+  fn draw(&self) -> Vec<Array1<f64>> {
     todo!()
   }
 }

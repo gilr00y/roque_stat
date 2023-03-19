@@ -5,3 +5,4 @@ pub(crate) mod multivariate_t;
 pub(crate) mod niw;
 pub(crate) mod stream_crp;
 pub(crate) mod batch_crp;
+pub(crate) mod util;
