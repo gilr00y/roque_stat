@@ -122,15 +122,11 @@ impl CRP<Table> for BatchCRP<'_> {
     todo!()
   }
 
-  // fn with_tables(&self, new_tables: HashMap<Vec<u8>, dyn BatchTable>) -> StreamCRP {
-  //   todo!()
-  // }
-
   // fn dupe(&self, new_tables: HashMap<Vec<u8>, dyn BatchTable>) -> StreamCRP {
   //   todo!()
   // }
 
-  // fn with_tables(&self, new_tables: HashMap<Vec<u8>, dyn BatchTable>) -> crate::roque_stat::stream_crp::StreamCRP {
+  // fn with_tables(&self, new_tables: HashMap<Vec<u8>, dyn BatchTable>) -> Self {
   //   todo!()
   // }
 
@@ -138,15 +134,40 @@ impl CRP<Table> for BatchCRP<'_> {
   //   todo!()
   // }
 
-  fn combine(&self, other: BatchCRP) -> BatchCRP {
+  fn combine(&self, other: Self) -> Self {
     todo!()
   }
 
   fn pp(&self, datum: Array1<f64>) -> f64 {
-    todo!()
+    // TODO: Rethink this...
+    self.tables.values().into_iter().map(|tbl| tbl.pp(&datum)).sum()
   }
 
-  fn draw(&self) -> Vec<Array1<f64>> {
-    todo!()
+  fn draw(&self, n: usize) -> Vec<Array1<f64>> {
+    // Step 1: Get full count.
+    let mut samples: Vec<Array1<f64>> = vec![];
+    for _ in 0..n {
+      let total_count: u16 = self.tables.values().into_iter().map(|tbl| tbl.count).sum();
+      // Step 2: Probabilistically select the table based on random/count
+      let rand_select: f64 = rand::thread_rng().gen_range(0.0..1.0);
+      let tbl_id = {
+        let mut _tmp_id = vec![];
+        let mut min_range = 0.0;
+        for table in self.tables.values() {
+          let max_range = min_range + table.count as f64 / total_count as f64;
+          if rand_select < max_range {
+            _tmp_id = table.id.clone();
+            break;
+          }
+          min_range = max_range;
+        }
+        _tmp_id
+      };
+      let selected_table = self.tables.get(&tbl_id).unwrap();
+
+      // Step 3: Draw from table and add to samples.
+      samples.push(selected_table.draw(1))
+    }
+    samples
   }
 }

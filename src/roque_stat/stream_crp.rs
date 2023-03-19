@@ -35,7 +35,7 @@ impl CRP<Table> for StreamCRP {
     todo!()
   }
 
-  fn draw(&self) -> Vec<Array1<f64>> {
+  fn draw(&self, n: usize) -> Vec<Array1<f64>> {
     todo!()
   }
 }

@@ -20,6 +20,10 @@ impl Table {
       self.component.pp(datum)
     }
   }
+
+  pub(crate) fn draw(&self, n: usize) -> Array1<f64> {
+    self.component.draw(n, false)
+  }
 }
 
 pub(crate) trait BatchTable {

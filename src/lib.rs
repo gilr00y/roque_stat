@@ -72,6 +72,21 @@ mod tests {
     }
   }
 
+  #[test]
+  fn draws_sample_from_CRP() {
+    let mut batch_crp = BatchCRP {
+      alpha: 0.001,
+      max_iterations: 0,
+      tables: &mut HashMap::new(),
+      psi_scale: Array1::from(vec![1.0, 1.0, 1.0])
+    };
+    let datum = Array1::from(vec![0.1, 0.2, 0.3]);
+    batch_crp.seat(datum.clone());
+    batch_crp.seat(datum.clone());
+    assert_eq!(batch_crp.draw(1).first().unwrap().len(), datum.len());
+    assert_eq!(batch_crp.draw(1).first().unwrap().len(), 3);
+    // assert_eq!(batch_crp.draw(1).first().unwrap().nrows(), datum.nrows());
+  }
 
   fn returns_high_posterior_probability_when_near_table_mean() {
     todo!()

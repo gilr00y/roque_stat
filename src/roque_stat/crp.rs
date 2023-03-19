@@ -16,10 +16,10 @@ pub(crate) trait CRP<T> {
     Uuid::new_v4().to_string().into_bytes()
   }
 
-  fn combine(&self, other: StreamCRP) -> StreamCRP;
+  fn combine(&self, other: Self) -> Self;
 
   fn pp(&self, datum: Array1<f64>) -> f64;
 
-  fn draw(&self) -> Vec<Array1<f64>>;
+  fn draw(&self, n: usize) -> Vec<Array1<f64>>;
 }
 

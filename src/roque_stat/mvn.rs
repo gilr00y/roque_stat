@@ -38,11 +38,11 @@ impl MVN {
   }
 
   // Function to draw random samples from the MVN distribution
-  fn draw(&self, n: usize, compress: bool) -> Array2<f64> {
+  pub(crate) fn draw(&self, n: usize, compress: bool) -> Array1<f64> {
     // Check if the scale factor is less than or equal to 5 and compress flag is true
     if self.k0 <= 5 && compress {
       // Return mean vector as a row vector
-      self.mu.clone().into_shape((1, self.n_dim)).unwrap()
+      self.mu.clone()
     } else {
       // Calculate scaled covariance matrix &
       // (TODO: Truncate the values in the scaled covariance matrix to two decimal places)
@@ -62,7 +62,7 @@ impl MVN {
       if result.iter().any(|&x| x > 1e8) {
         println!("Absurd sample received: MU: {:?}, SIG: {:?}", scaled_mu, clipped_scaled_sig);
       }
-      result
+      result.remove_axis(ndarray::Axis(1))
     }
   }
 
