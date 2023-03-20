@@ -1,3 +1,4 @@
+
 use std::collections::HashMap;
 use ndarray::{Array1, Array2};
 use rand;
@@ -69,16 +70,16 @@ impl BatchCRP<'_> {
         match el {
           (tbl_id, pp, tbl_count) => {
             let normalized_pp = if *tbl_count == 0 {
-              println!("TBL COUNT IS 0, so PP is being set to {}", self.alpha / sum_pp);
-              println!("COunt = 0, ALpha: {}, Sum_pp: {}", self.alpha, sum_pp);
+              // println!("TBL COUNT IS 0, so PP is being set to {}", self.alpha / sum_pp);
+              // println!("COunt = 0, ALpha: {}, Sum_pp: {}", self.alpha, sum_pp);
 
               self.alpha / sum_pp
             } else {
-              println!("TBL COUNT NOT 0, SO PP CALCULATED as {}", *pp / sum_pp);
-              println!("COunt = 0, ALpha: {}, Sum_pp: {}", self.alpha, sum_pp);
+              // println!("TBL COUNT NOT 0, SO PP CALCULATED as {}", *pp / sum_pp);
+              // println!("COunt = 0, ALpha: {}, Sum_pp: {}", self.alpha, sum_pp);
               *pp / sum_pp
             };
-            println!("NORMALIZED_PP: {}", normalized_pp);
+            // println!("NORMALIZED_PP: {}", normalized_pp);
             positional_collector += normalized_pp;
             (*tbl_id, positional_collector)
           }
@@ -94,9 +95,9 @@ impl BatchCRP<'_> {
       let mut _tmp_id = vec![] as Vec<u8>;
 
       for (tbl_id, max_thresh) in normalized_table_pps {
-        println!("TABLE ID: {}", String::from_utf8_lossy(tbl_id));
-        println!("SELECT: {}", select);
-        println!("max thresh: {}", max_thresh);
+        // println!("TABLE ID: {}", String::from_utf8_lossy(tbl_id));
+        // println!("SELECT: {}", select);
+        // println!("max thresh: {}", max_thresh);
         if select < max_thresh {
           _tmp_id = tbl_id.clone();
           break;

@@ -5,7 +5,7 @@ use crate::roque_stat::table::Table;
 use uuid::Uuid;
 
 
-pub(crate) trait CRP<T> {
+pub trait CRP<T> {
   fn seat(&mut self, datum: Array1<f64>);
   fn reseat_all(&self, iterations: u64);
   // fn with_tables(&self, new_tables: HashMap<Vec<u8>, T>) -> StreamCRP;

@@ -47,22 +47,29 @@ impl MVN {
       // Calculate scaled covariance matrix &
       // (TODO: Truncate the values in the scaled covariance matrix to two decimal places)
       let scaled_sig = &self.sig();
+      println!("SCALED SIG: {scaled_sig}");
       // Ensure that the diagonal elements of the scaled covariance matrix are greater than a threshold value
       let clipped_scaled_sig = util::ensure_diag_above_threshold(&scaled_sig, 0.1f64, self.n_dim);
+      println!("CLIPPED SCALED SIG: {clipped_scaled_sig}");
       // Clone the mean vector and generate a random vector from standard normal distribution
       let scaled_mu = self.mu.clone();
       let z: Array1<f64> = Array::random(self.n_dim, StandardNormal);
+      println!("Z: {z}");
       // Compute the Cholesky decomposition of the clipped scaled covariance matrix
       // let j_scaled_sig = Cholesky::new(clipped_scaled_sig.clone().).unwrap().l();
       let j_scaled_sig = clipped_scaled_sig.cholesky(UPLO::Lower).unwrap();
+      println!("J SCALED SIG: {j_scaled_sig}");
       let root = Array2::from_shape_vec((self.n_dim, self.n_dim), j_scaled_sig.as_slice().unwrap().to_vec()).unwrap();
+      println!("ROOT: {root}");
       // Compute the random samples from the MVN distribution
-      let result = &root * &z + &scaled_mu;//.insert_axis(Axis(0));
+      // 2x2 * 1x2
+      let result = &z.dot(&root) + &scaled_mu;//.insert_axis(Axis(0));
+      println!("RESULT: {result}");
       // Check if the random samples have any values greater than 1e8
       if result.iter().any(|&x| x > 1e8) {
         println!("Absurd sample received: MU: {:?}, SIG: {:?}", scaled_mu, clipped_scaled_sig);
       }
-      result.remove_axis(ndarray::Axis(1))
+      result
     }
   }
 
@@ -71,7 +78,10 @@ impl MVN {
     println!("SIG K0: {}", self.k0);
     println!("SIG PSI: {}", self.psi);
     println!("SIG COEFF: {}", ((self.k0 + 1) as f64) / ((self.k0 * (self.k0 - self.n_dim as i32 + 1)) as f64));
-    ((self.k0 + 1) as f64) / ((self.k0 * (self.k0 - self.n_dim as i32 + 1)) as f64) * &self.psi
+    let adj = if self.k0 + 1 <= self.n_dim as i32 { 2 } else {
+      (self.k0 * (self.k0 - self.n_dim as i32 + 1))
+    };
+    ((self.k0 + 1) as f64) / (self.k0 as f64 * adj as f64) * &self.psi
   }
 
   // Function to update the MVN distribution with new data

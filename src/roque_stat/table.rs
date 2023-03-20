@@ -36,6 +36,6 @@ impl BatchTable for Table {
     self.count += 1;
     // let dat = datum.clone();
     self.partition.push(datum.clone());
-    self.component.update(&datum.insert_axis(ndarray::Axis(1)));
+    self.component.update(&datum.insert_axis(ndarray::Axis(0)));
   }
 }

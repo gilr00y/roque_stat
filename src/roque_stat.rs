@@ -1,8 +1,8 @@
-pub(crate) mod crp;
-pub(crate) mod table;
+pub mod crp;
+pub mod table;
 pub(crate) mod mvn;
 pub(crate) mod multivariate_t;
 pub(crate) mod niw;
-pub(crate) mod stream_crp;
-pub(crate) mod batch_crp;
+pub mod stream_crp;
+pub mod batch_crp;
 pub(crate) mod util;

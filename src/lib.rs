@@ -1,4 +1,4 @@
-mod roque_stat;
+pub mod roque_stat;
 
 #[cfg(test)]
 mod tests {
