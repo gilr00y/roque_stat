@@ -16,7 +16,7 @@ mod tests {
     let mut batch_crp = BatchCRP {
       alpha: 0.1,
       max_iterations: 0,
-      tables: &mut HashMap::new(),
+      tables: Box::new(HashMap::new()),
       psi_scale: Array1::from(vec![1.0, 1.0, 1.0])
     };
     let datum = Array1::from(vec![0.1, 0.2, 0.3]);
@@ -35,7 +35,7 @@ mod tests {
     let mut batch_crp = BatchCRP {
       alpha: 0.01,
       max_iterations: 0,
-      tables: &mut HashMap::new(),
+      tables: Box::new(HashMap::new()),
       psi_scale: Array1::from(vec![1.0, 1.0, 1.0])
     };
     let datum = Array1::from(vec![0.1, 0.2, 0.3]);
@@ -55,7 +55,7 @@ mod tests {
     let mut batch_crp = BatchCRP {
       alpha: 0.1,
       max_iterations: 0,
-      tables: &mut HashMap::new(),
+      tables: Box::new(HashMap::new()),
       psi_scale: Array1::from(vec![1.0, 1.0, 1.0])
     };
     let datum = Array1::from(vec![0.1, 0.2, 0.3]);
@@ -77,7 +77,7 @@ mod tests {
     let mut batch_crp = BatchCRP {
       alpha: 0.001,
       max_iterations: 0,
-      tables: &mut HashMap::new(),
+      tables: Box::new(HashMap::new()),
       psi_scale: Array1::from(vec![1.0, 1.0, 1.0])
     };
     let datum = Array1::from(vec![0.1, 0.2, 0.3]);

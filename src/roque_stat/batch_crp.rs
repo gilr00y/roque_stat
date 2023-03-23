@@ -9,14 +9,14 @@ use crate::roque_stat::stream_crp::StreamCRP;
 use crate::roque_stat::table::{BatchTable, Table};
 
 
-pub struct BatchCRP<'a> {
+pub struct BatchCRP {
   pub alpha: f64,
   pub max_iterations: u32,
-  pub tables: &'a mut HashMap<Vec<u8>, Box<Table>>,
+  pub tables: Box<HashMap<Vec<u8>, Box<Table>>>,
   pub psi_scale: Array1<f64>,
 }
 
-impl BatchCRP<'_> {
+impl BatchCRP {
   fn get_table_pps(&self, datum: &Array1<f64>) -> Vec<(&Vec<u8>, f64, u16)> {
     self.tables.iter()
       .map(|(tbl_id, tbl)| {
@@ -113,7 +113,7 @@ impl BatchCRP<'_> {
   }
 }
 
-impl CRP<Table> for BatchCRP<'_> {
+impl CRP<Table> for BatchCRP {
   fn seat(&mut self, datum: Array1<f64>) {
     let (seated_tbl_id, new_tbl_id) = self.seat_datum(datum);
     self.clean_up(seated_tbl_id, new_tbl_id);

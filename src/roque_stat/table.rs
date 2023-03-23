@@ -3,6 +3,7 @@ use ndarray::{Array1, Array2};
 use crate::roque_stat::stream_crp::StreamCRP;
 use crate::roque_stat::mvn::MVN;
 
+#[derive(Clone)]
 pub struct Table {
   pub id: Vec<u8>,
   pub count: u16,
