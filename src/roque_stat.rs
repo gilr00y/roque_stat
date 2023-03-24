@@ -8,3 +8,4 @@ pub mod batch_crp;
 pub mod projection;
 // pub mod conditional;
 pub(crate) mod util;
+pub mod conditional;

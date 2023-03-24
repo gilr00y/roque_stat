@@ -107,7 +107,7 @@ impl BatchCRP {
     };
 
     // Assign datum to that table.
-    let mut table = self.tables.get_mut(select_tbl_id.clone().as_slice()).unwrap();
+    let table = self.tables.get_mut(select_tbl_id.clone().as_slice()).unwrap();
     table.seat(datum.clone());
     (select_tbl_id, new_table_id)
   }

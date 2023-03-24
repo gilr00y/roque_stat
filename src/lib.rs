@@ -4,11 +4,11 @@ pub mod roque_stat;
 mod tests {
   use std::collections::HashMap;
   use ndarray::{Array1, Array2};
-  use crate::roque_stat::mvn::MVN;
+  // use crate::roque_stat::mvn::MVN;
   use crate::roque_stat::table::Table;
   use crate::roque_stat::batch_crp::BatchCRP;
   use crate::roque_stat::crp::CRP;
-  use crate::roque_stat::stream_crp::StreamCRP;
+  // use crate::roque_stat::stream_crp::StreamCRP;
 
 
   #[test]
@@ -73,7 +73,7 @@ mod tests {
   }
 
   #[test]
-  fn draws_sample_from_CRP() {
+  fn draws_sample_from_crp() {
     let mut batch_crp = BatchCRP {
       alpha: 0.001,
       max_iterations: 0,

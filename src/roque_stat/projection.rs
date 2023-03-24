@@ -9,7 +9,7 @@ pub struct Projection {
 }
 
 impl Projection {
-  pub fn new(crp: &BatchCRP, projected_dims: Vec<usize>) -> Projection {
+  pub fn new(crp: &BatchCRP, projected_dims: Vec<usize>) -> Self {
     // NOTE: Projected dims are the indexes, not a mask.
     // let n_dims = crp.psi_scale.len();
     // let mut A: Array2<f64> = Array2::zeros((n_dims, n_dims));//from_diag(Array);

@@ -76,7 +76,7 @@ impl MVN {
     // println!("SIG K0: {}", self.k0);
     // println!("SIG PSI: {}", self.psi);
     let adj = if self.k0 + 1 <= self.n_dim as i32 { 2 } else {
-      (self.k0 * (self.k0 - self.n_dim as i32 + 1))
+      self.k0 * (self.k0 - self.n_dim as i32 + 1)
     };
     ((self.k0 + 1) as f64) / (self.k0 as f64 * adj as f64) * &self.psi
   }
