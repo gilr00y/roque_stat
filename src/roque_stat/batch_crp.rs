@@ -21,9 +21,9 @@ impl BatchCRP {
     self.tables.iter()
       .map(|(tbl_id, tbl)| {
         let weighted_pp = tbl.pp(datum);
-        println!("TBLE_PP: {}", weighted_pp);
+        // println!("TBLE_PP: {}", weighted_pp);
         let table_count = tbl.count;
-        println!("TBL_COUNT: {}", tbl.count);
+        // println!("TBL_COUNT: {}", tbl.count);
         // New table has table_count = 0, so the pp is also 0.
         (tbl_id, weighted_pp * table_count as f64, tbl.count)
       }).collect()

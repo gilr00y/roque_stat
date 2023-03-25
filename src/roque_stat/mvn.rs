@@ -72,7 +72,7 @@ impl MVN {
   }
 
   // Function to compute the scaled covariance matrix
-  fn sig(&self) -> Array2<f64> {
+  pub(crate) fn sig(&self) -> Array2<f64> {
     // println!("SIG K0: {}", self.k0);
     // println!("SIG PSI: {}", self.psi);
     let adj = if self.k0 + 1 <= self.n_dim as i32 { 2 } else {

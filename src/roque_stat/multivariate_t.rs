@@ -35,16 +35,16 @@ impl MultivariateT {
   }
 
   pub(crate) fn posterior_predictive(&self, x: &Array1<f64>, sig: &Array2<f64>) -> f64 {
-    println!("X: {} | MU: {}", x, self.mu);
-    println!("SIG: {sig}");
+    // println!("X: {} | MU: {}", x, self.mu);
+    // println!("SIG: {sig}");
     let deviation = x - &self.mu;
-    println!("DEVIATION: {deviation}");
+    // println!("DEVIATION: {deviation}");
     let deviation = deviation.into_owned();
     let proj = deviation
       .dot(&sig.solve(&deviation).unwrap());
       // .into_scalar();
 
-    println!("PROJ: {}", proj);
+    // println!("PROJ: {}", proj);
 
     let coeff = self.gamma_div((self.n_dim + self.dof) / 2, self.dof / 2) as f64
       * f64::from(self.dof).powf(-1.0 * (self.n_dim as f64 / 2.0 as f64))

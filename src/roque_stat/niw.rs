@@ -43,34 +43,34 @@ impl NormalInverseWishart {
   }
 
   pub(crate) fn update(&self, samples: &Array2<f64>) -> NormalInverseWishart {
-    println!("SAMPLES: {samples}");
+    // println!("SAMPLES: {samples}");
     let num_samples = samples.nrows() as f64;
     let n_dim = self.dist_mean.len();
 
     let sample_mean = samples.mean_axis(ndarray::Axis(0)).unwrap();
-    println!("SAMPLE MEAN: {sample_mean}");
+    // println!("SAMPLE MEAN: {sample_mean}");
     let sample_mean_broadcast = sample_mean.broadcast((num_samples as usize, n_dim)).unwrap();
     let new_mean = (self.k0 as f64 * &self.dist_mean + num_samples * &sample_mean)
       / (self.k0 as f64 + num_samples);
-    println!("NEW MEAN {new_mean}");
+    // println!("NEW MEAN {new_mean}");
 
     let k1 = self.k0 + num_samples as i32;
     let v1 = self.v0 + num_samples as i32;
 
     let deviations = samples - &sample_mean_broadcast;
-    println!("DEVIATIONS: {deviations}");
+    // println!("DEVIATIONS: {deviations}");
     let c = deviations.t().dot(&deviations);
 
     let mean_diff = &sample_mean - &self.dist_mean;
     let mean_adj_coeff = (num_samples * self.k0 as f64) / (self.k0 as f64 + num_samples);
     let mean_psi_adjustment = mean_diff.dot(&mean_diff.t());
 
-    println!("OLD PSI: {}", self.psi);
-    println!("NEW C: {}", c);
-    println!("mean_adj_coeff: {mean_adj_coeff}");
-    println!("mean_psi_adj: {mean_psi_adjustment}");
+    // println!("OLD PSI: {}", self.psi);
+    // println!("NEW C: {}", c);
+    // println!("mean_adj_coeff: {mean_adj_coeff}");
+    // println!("mean_psi_adj: {mean_psi_adjustment}");
     let new_psi = &self.psi + &c + mean_adj_coeff * mean_psi_adjustment;
-    println!("NEW PSI: {new_psi}");
+    // println!("NEW PSI: {new_psi}");
 
     NormalInverseWishart {
       dist_mean: new_mean,
