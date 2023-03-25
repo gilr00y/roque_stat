@@ -51,14 +51,14 @@ impl MultivariateT {
       * (-std::f64::consts::LN_2 * self.n_dim as f64 / 2.0).exp()
       / f64::from(std::f64::consts::PI).powf(self.n_dim as f64 / 2.0);
 
-    println!("COEFF: {}", coeff);
+    // println!("COEFF: {}", coeff);
 
     let sig_det = sig.det().unwrap();
-    println!("SIG DET: {sig_det}");
+    // println!("SIG DET: {sig_det}");
     let sig_det_inv_sqrt = sig_det.abs().sqrt().recip();
-    println!("SIG DET INV SQRT: {sig_det_inv_sqrt}");
+    // println!("SIG DET INV SQRT: {sig_det_inv_sqrt}");
     let the_rest = (1.0 + proj / f64::from(self.dof)).powf(-1.0 * (self.n_dim + self.dof) as f64 / 2.0);
-    println!("THE REST: {the_rest}");
+    // println!("THE REST: {the_rest}");
 
     coeff * sig_det_inv_sqrt * the_rest
   }
