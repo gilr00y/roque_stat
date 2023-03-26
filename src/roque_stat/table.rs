@@ -6,7 +6,7 @@ use crate::roque_stat::mvn::MVN;
 #[derive(Clone)]
 pub struct Table {
   pub id: Vec<u8>,
-  pub count: u16,
+  pub count: u64,
   pub component: MVN,
   pub alpha: f64,
   pub partition: Vec<Array1<f64>>,
@@ -33,7 +33,7 @@ pub(crate) trait BatchTable {
 
 impl BatchTable for Table {
   fn seat(&mut self, datum: Array1<f64>) {
-    println!("Seating at {}", String::from_utf8(self.id.clone()).unwrap());
+    // println!("Seating at {}", String::from_utf8(self.id.clone()).unwrap());
     self.count += 1;
     // let dat = datum.clone();
     self.partition.push(datum.clone());

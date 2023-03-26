@@ -50,11 +50,9 @@ impl Conditional {
     let mut idx_11: Vec<usize> = (0..n_dims_total).collect();
     idx_11.retain(|x| !idx_22.contains(x));
 
-    let mut total_likelihood: f64 = 0.0;
-
     let total_likelihood: f64 = crp.tables.iter().map(|entry| {
       match entry {
-        (tbl_id, tbl) => {
+        (_tbl_id, tbl) => {
           let mu2 = tbl.component.mu.select(Axis(0), &idx_22);
           let psi22 = tbl.component.psi.select(Axis(0), &idx_22).select(Axis(1), &idx_22);
           let likelihood = multivariate_normal_pdf(&query_values, &mu2, &psi22);
@@ -62,7 +60,6 @@ impl Conditional {
         }
       }
     }).sum();
-
 
     let new_tables = crp.tables.iter().map(|entry| {
       match entry {
@@ -86,7 +83,7 @@ impl Conditional {
           new_tbl.component.mu = mu_cond;//(new_tbl.component.mu * &A * &a).remove_axis(ndarray::Axis(1));
           new_tbl.component.psi = psi_cond;//&A * new_tbl.component.psi * &A.t();
           new_tbl.component.n_dim = idx_11.len();
-          new_tbl.count = (tbl.count as f64 * likelihood /total_likelihood.clone()).to_u16().unwrap();
+          new_tbl.count = (tbl.count as f64 * likelihood /total_likelihood.clone()).to_u64().unwrap();
 
           (tbl_id.clone(), Box::new(new_tbl))
         }

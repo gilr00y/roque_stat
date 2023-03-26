@@ -7,7 +7,7 @@ use crate::roque_stat::table::Table;
 pub struct StreamCRP {
   pub alpha: f64,
   pub max_iterations: u32,
-  pub tables: HashMap<u16, String>,
+  pub tables: HashMap<u64, String>,
 }
 
 impl CRP<Table> for StreamCRP {

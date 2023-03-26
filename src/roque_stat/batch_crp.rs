@@ -17,7 +17,7 @@ pub struct BatchCRP {
 }
 
 impl BatchCRP {
-  fn get_table_pps(&self, datum: &Array1<f64>) -> Vec<(&Vec<u8>, f64, u16)> {
+  fn get_table_pps(&self, datum: &Array1<f64>) -> Vec<(&Vec<u8>, f64, u64)> {
     self.tables.iter()
       .map(|(tbl_id, tbl)| {
         let weighted_pp = tbl.pp(datum);
@@ -55,7 +55,7 @@ impl BatchCRP {
 
     self.tables.insert(new_table_id.clone(), Box::new(new_table));
 
-    let table_pps: Vec<(&Vec<u8>, f64, u16)> = self.get_table_pps(&datum);
+    let table_pps: Vec<(&Vec<u8>, f64, u64)> = self.get_table_pps(&datum);
 
     let sum_pp = table_pps.iter().fold(0.0, |acc, el| {
       let pp = el.1;
@@ -148,7 +148,7 @@ impl CRP<Table> for BatchCRP {
     // Step 1: Get full count.
     let mut samples: Vec<Array1<f64>> = vec![];
     for _ in 0..n {
-      let total_count: u16 = self.tables.values().into_iter().map(|tbl| tbl.count).sum();
+      let total_count: u64 = self.tables.values().into_iter().map(|tbl| tbl.count).sum();
       // Step 2: Probabilistically select the table based on random/count
       let rand_select: f64 = rand::thread_rng().gen_range(0.0..1.0);
       let tbl_id = {
