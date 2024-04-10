@@ -6,7 +6,7 @@ mod tests {
   use ndarray::{Array1, Array2};
   // use crate::roque_stat::mvn::MVN;
   use crate::roque_stat::table::Table;
-  use crate::roque_stat::batch_crp::BatchCRP;
+  use crate::roque_stat::batch_crp::{BatchCRP, Blah};
   use crate::roque_stat::crp::CRP;
   // use crate::roque_stat::stream_crp::StreamCRP;
 
@@ -59,9 +59,10 @@ mod tests {
       psi_scale: Array1::from(vec![1.0, 1.0, 1.0])
     };
     let datum = Array1::from(vec![0.1, 0.2, 0.3]);
-    let new_datum = Array1::from(vec![0.1, 0.2, 0.3]);//Array1::from(vec![15.0, 14.1, 11.9]);
+    let new_datum = Array1::from(vec![1., 2., 3.]);//Array1::from(vec![15.0, 14.1, 11.9]);
     batch_crp.seat(datum);
     batch_crp.seat(new_datum);
+
 
     assert_eq!(batch_crp.tables.len(), 2);
 

@@ -16,6 +16,16 @@ pub struct BatchCRP {
   pub psi_scale: Array1<f64>,
 }
 
+pub trait Blah {
+  fn blah(&mut self) -> String;
+}
+
+impl Blah for BatchCRP {
+  fn blah(&mut self) -> String {
+    "Heyo".into()
+  }
+}
+
 impl BatchCRP {
   fn get_table_pps(&self, datum: &Array1<f64>) -> Vec<(&Vec<u8>, f64, u64)> {
     self.tables.iter()
