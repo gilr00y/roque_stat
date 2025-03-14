@@ -8,7 +8,7 @@ mod tests {
     use ndarray_rand::rand_distr::num_traits::abs;
     // use crate::roque_stat::mvn::MVN;
     use crate::roque_stat::table::Table;
-    use crate::roque_stat::batch_crp::{BatchCRP, Blah};
+    use crate::roque_stat::batch_crp::{BatchCRP};
     use crate::roque_stat::crp::CRP;
     // use crate::roque_stat::stream_crp::StreamCRP;
 
@@ -64,8 +64,6 @@ mod tests {
         let new_datum = Array1::from(vec![1., 2., 3.]);//Array1::from(vec![15.0, 14.1, 11.9]);
         batch_crp.seat(datum);
         batch_crp.seat(new_datum);
-
-        assert_eq!(batch_crp.blah(), <&str as Into<String>>::into("Heyo"));
 
         assert_eq!(batch_crp.tables.len(), 2);
 
